@@ -1,3 +1,8 @@
+<?php
+$show = false;
+$show = true;
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -9,13 +14,13 @@
             margin: 0;
             padding: 0;
             display: flex;
-            align-items: center;
+            /* align-items: center; */
             justify-content: center;
             height: 100vh;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 100%;
             padding: 20px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -62,7 +67,7 @@
         }
 
         .container ul {
-            max-width: 500px;
+            max-width: 900px;
             padding: 20px;
             background-color: black;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -114,19 +119,19 @@
     <div class="container">
         <?php
         $phpVersion = PHP_VERSION;
-        $server = "172.17.0.1:57";
+        $server = "localhost:3306";
         $username = "root";
         $password = "";
-        $database = "hatpen_medex_v1_db";
+        $database = "base_code_igniter";
 
         $koneksi = new mysqli($server, $username, $password, $database);
         $versiSql = $koneksi->server_info;
         $statusClass = $koneksi->connect_error ? 'error' : 'success';
         ?>
 
-        <h1>DOCKER</h1>
+        <h1>ADAM LARAGON SERVER</h1>
 
-        <table border="1">
+        <table border="1" style="font-weight: bolder;">
             <thead>
                 <tr>
                     <th>SERVICE</th>
@@ -149,16 +154,21 @@
         </table>
 
         <?php
-        $dir = '/var/www/html';
-        $folders = array_filter(glob($dir . '/*'), 'is_dir');
-        echo '<ul>';
-        echo '<h2 style="color:orange;text-align:center;"><b>DAFTAR FOLDER</b></h2>';
+        if($show){
+            $dir = './';
+            $folders = array_filter(glob($dir . '/*'), 'is_dir');
+            echo '<ul>';
+            echo '<h2 style="color:orange;text-align:center;"><b>DAFTAR FOLDER</b></h2>';
 
-        foreach ($folders as $folder) {
-            $folderName = basename($folder);
-            echo '<li> <span class="icon-folder"></span> <a href="' . $folderName . '">' . $folderName . '</a></li>';
+            foreach ($folders as $folder) {
+                $folderName = basename($folder);
+                echo '<li> <span class="icon-folder"></span> <a href="' . $folderName . '">' . $folderName . '</a></li>';
+            }
+            echo '</ul>';
+        }else{
+            echo '<h2 style="color:red;text-align:center;"><b>403 Forbidden</b></h2>';
         }
-        echo '</ul>';
+        
         ?>
 
         <p class="footer">Design by Adam Arnap 2023</p>
